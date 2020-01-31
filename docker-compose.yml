@@ -1,0 +1,22 @@
+version: "3.2"
+services:
+  rapid:
+    stdin_open: true
+    tty: true
+    container_name: rapid
+    image: byu_hydro/rapid
+    build:
+      context: ./
+    volumes:
+      - type: bind
+        source: /home/ec2-user/mounts/data/input
+        target: /home/rapid-io/input
+      - type: bind
+        source: /home/ec2-user/mounts/data/output
+        target: /home/rapid-io/output
+      - type: bind
+        source: /home/ec2-user/mounts/data/era-data
+        target: /home/ERA-5_hourly_data
+      - type: bind
+        source: ./run_script.py
+        target: /home/run_script.py
