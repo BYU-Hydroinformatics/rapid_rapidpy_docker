@@ -1,22 +1,31 @@
 version: "3.2"
 services:
   rapid:
+    environment:
+      - REGION=south_asia-geoglows
+      - SERVICE=aws
     stdin_open: true
     tty: true
     container_name: rapid
-    image: byu_hydro/rapid
+    image: spt_compute_docker
     build:
       context: ./
     volumes:
       - type: bind
-        source: /home/ec2-user/mounts/data/input
+        source: ./input_data
         target: /home/rapid-io/input
       - type: bind
-        source: /home/ec2-user/mounts/data/output
+        source: ./ecmwf_data
+        target: /home/ecmwf_data
+      - type: bind
+        source: ./run_logs
+        target: /home/logs
+      - type: bind
+        source: ./subprocess_logs
+        target: /home/subprocess_logs
+      - type: bind
+        source: ./output_files
         target: /home/rapid-io/output
       - type: bind
-        source: /home/ec2-user/mounts/data/era-data
-        target: /home/ERA-5_hourly_data
-      - type: bind
-        source: ./run_script.py
-        target: /home/run_script.py
+        source: ./scripts
+        target: /home/scripts

@@ -1,21 +1,35 @@
-from datetime import datetime
-from RAPIDpy.inflow import run_lsm_rapid_process
+# -*- coding: utf-8 -*-
+from spt_compute import run_ecmwf_forecast_process
 # ------------------------------------------------------------------------------
 # main process
 # ------------------------------------------------------------------------------
 if __name__ == "__main__":
-    run_lsm_rapid_process(
-        rapid_executable_location='/root/rapid/run/rapid',
+    run_ecmwf_forecast_process(
+        rapid_executable_location='/root/rapid/src/rapid',
         rapid_io_files_location='/home/rapid-io',
-        lsm_data_location='/home/ERA-5_hourly_data',  # path to folder with LSM data
-        simulation_start_datetime=datetime(1979, 1, 1),
-        simulation_end_datetime=datetime(2018, 12, 31),
-        generate_rapid_namelist_file=True,  # if you want to run RAPID manually later
-        run_rapid_simulation=True,  # if you want to run RAPID after generating inflow file
-        generate_return_periods_file=True,  # if you want to get return period file from RAPID simulation
-        return_period_method='weibull',
-        generate_seasonal_averages_file=True,
-        generate_seasonal_initialization_file=True,  # if you want to get seasonal init file from RAPID simulation
-        generate_initialization_file=False,  # if you want to generate qinit file from end of RAPID simulation
-        use_all_processors=True
+        ecmwf_forecast_location="/home/ecmwf_data",
+        era_interim_data_location="/home/era_interim",
+        subprocess_log_directory='/home/subprocess_logs',
+        main_log_directory='/home/logs',
+        data_store_url='',
+        data_store_api_key='',
+        data_store_owner_org='',
+        app_instance_id='',
+        sync_rapid_input_with_ckan=False,
+        download_ecmwf=True,
+        ftp_host="data-portal.ecmwf.int",
+        ftp_login="safer",
+        ftp_passwd="neo2008",
+        ftp_directory="tcyc",
+        date_string="*.00",
+        region="",
+        upload_output_to_ckan=False,
+        initialize_flows=True,
+        create_warning_points=True,
+        warning_flow_threshold=30,
+        delete_output_when_done=False,
+        mp_mode='multiprocess',
+        mp_execute_directory='/home/mp_execute',
+        accelerate_download=True,
+        num_connections=15
     )
