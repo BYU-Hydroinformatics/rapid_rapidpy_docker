@@ -3,20 +3,21 @@ services:
   rapid:
     stdin_open: true
     tty: true
-    container_name: rapid
-    image: byu_hydro/rapid
+    container_name: hiwat_rapid
+    image: byu_hydro/hiwat_rapid
     build:
       context: ./
     volumes:
       - type: bind
-        source: /home/ec2-user/mounts/data/input
+        source: ./input_data
         target: /home/rapid-io/input
       - type: bind
-        source: /home/ec2-user/mounts/data/output
+        source: ./output_files
         target: /home/rapid-io/output
       - type: bind
-        source: /home/ec2-user/mounts/data/era-data
-        target: /home/ERA-5_hourly_data
+        source: ./input_dataset
+        target: /home/input_dataset
       - type: bind
         source: ./run_script.py
         target: /home/run_script.py
+
